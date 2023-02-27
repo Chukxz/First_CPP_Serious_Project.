@@ -1,6 +1,5 @@
 #include <iostream>
 using namespace std;
-
 class Polynomial{
     protected:
     int degree;
@@ -11,8 +10,7 @@ class Polynomial{
     public:
     Polynomial(){}
     void Poly(){
-        cout<<"Input Polynomial degree:"<<endl;
-        cin>>degree;
+        cin>>degree;        
         for(int i = degree; i>=0; i--){
             cout<<"Input coefficient of x raised to power "<<i<<": "<<endl;
             cin>>val;
@@ -20,14 +18,9 @@ class Polynomial{
         }
         for(int i=degree; i>=0; i--){
             cout<<newarr[i]<<" ";
-        }
-        cout<<endl;
+        }  
     }
-    void Xspace(){
-        for(int x=1;x<=10*minx;x++){
-            cout<<"  ";
-        }
-    }
+
     void xvals(){
         cout<<"Input range of X values"<<endl;;
 
@@ -45,8 +38,8 @@ class Polynomial{
 
 class Plotting: public Polynomial{
     protected:
-    int * arrj = new int[(rangeY/2)];
-    int * arrk = new int[(rangeY/2)+1];
+    int * arrj = new int[xmin];
+    int * arrk = new int[xmax+1];
     int * arrsum = new int[rangeX+1];
     int rangeY = 0;
     public:
@@ -54,7 +47,6 @@ class Plotting: public Polynomial{
     int retRangeY(){
         return rangeY;
     }
-    ~Plotting(){}
     float powbase(int base, int power){
         if(power==0){
             return 1;
@@ -162,35 +154,6 @@ class Plotting: public Polynomial{
     int getxmin(){
         return xmin;
     }    
-
-    void Ymaxline(){
-        if((minx+xmax)<=15){
-            for(int i=1;i<=5*ymax;i++){
-                Xspace();
-            cout<<"|"<<endl;
-            }
-        }
-    }
-    void Xline(){
-        if((minx+xmax)<=15){
-            for(int a=1;a<=10*minx;a++){
-            cout<<"--";
-            }
-            cout<<"|";
-            for(int b=1;b<=10*xmax;b++){
-            cout<<"--";
-            }
-            cout<<endl;
-        }
-    }
-    void Yminline(){
-        if((minx+xmax)<=15){
-            for(int i=1;i<=5*miny;i++){
-                Xspace();
-            cout<<"|"<<endl;
-            }
-        }
-    }
 };
 
 
@@ -270,9 +233,8 @@ class Combine: public Round, public Plotting {
     double valy = 0;
     double conversion = 0;
     int nums = 0;
-    double *graphingArr = new double [rangeY+1];
+    double *graphingArr = new double [(rangeY+1)];
     public:
-    Combine(){};
     void runCombine(){//Number should not be greater than 80,000,000 (Eighty Million).
         nums = rangeY;
         if(nums<=numVal){
@@ -320,34 +282,54 @@ class Combine: public Round, public Plotting {
     }
 
     void finalgraph(){
-        for(int i= 0;i<=(minx+xmax);i++){
+        for(int i=0;i<=(minx+xmax);i++){
             graphingArr[i] = conversion * arrsum[i];
             cout<<"When x is "<<i+xmin<<" y is "<<arrsum[i]<<" and "<<graphingArr[i]<<" in graph units and "<<this->roundDown(graphingArr[i])<<" when rounded down."<<endl;
         }
     }
 };
 
+
+
 class FinalClass: public Combine{
+    protected:
+    int range = 0;
     public:
-    FinalClass(){}
+    FinalClass(){
+        range = minx+xmax;
+    }
+    ~FinalClass(){
+        delete [] newarr;
+        delete [] arrj;
+        delete [] arrk;
+        delete [] arrsum;
+        delete [] graphingArr;
+    }
     void runFinalClass(){
         int inputformat;
         cout<<"Polynomial 1"<<endl<<"Conic 2"<<endl<<"exit 3"<<endl;
         cin>>inputformat;
         if(inputformat == 1){
+            cout<<"Input Polynomial degree (Value of degree should not be less than one):"<<endl;
             this->Poly();
-            this->xvals();
-            this->plot();
-            this->graphs();
-            if(this->getxmin()<=0){
-            // this->Ymaxline();
-            // this->Xline();
-            // this->Yminline();
-            }else if(this->getxmin()>0){
-                cout<<"Minimum value of x should be equal to or less than 0, but it is greater than 0.";
+            if(degree>0){
+                this->xvals();
+                this->plot();
+                this->graphs();
+                if(this->getxmin()<=0){
+                // this->Ymaxline();
+                // this->Xline();
+                // this->Yminline();
+                this->runCombine();
+                }else if(this->getxmin()>0){
+                    cout<<"Minimum value of x should be equal to or less than 0, but it is greater than 0.";
+                }
+                else{
+                    cout<<"Value of x is not a number!";
+                }
             }
             else{
-                cout<<"Value of x is not a number!";
+                cout<<"Program exited.";
             }
         }
         else if(inputformat == 2){
@@ -355,11 +337,8 @@ class FinalClass: public Combine{
         else if(inputformat == 3){
             cout<<"Program exited.";
         }
-        else{
-            cin>>inputformat;
-        }
-        this->runCombine();
     }
+
 };
 
 int main(){
