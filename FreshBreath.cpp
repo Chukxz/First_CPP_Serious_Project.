@@ -271,7 +271,6 @@ class FinalClass: public Combine{
         this->runCombine();
     }
 };
-
 int main(){
     FinalClass final;
     final.runFinalClass();
