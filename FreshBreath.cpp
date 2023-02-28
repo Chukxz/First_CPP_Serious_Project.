@@ -190,8 +190,6 @@ class Plotting: public Polynomial{
 class Combine: public Plotting {
     protected:
     double numVal = 40;
-    double valz = 0;
-    double valy = 0;
     double conversion = 0;
     int nums = 0;
     double *graphingArr = new double [rangeX+1];
