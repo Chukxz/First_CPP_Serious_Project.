@@ -45,15 +45,11 @@ class Polynomial{
 
 class Plotting: public Polynomial{
     protected:
-    int * arrj = new int[(rangeY/2)];
-    int * arrk = new int[(rangeY/2)+1];
+    int * arrj = new int[(rangeX/2)];
+    int * arrk = new int[(rangeX/2)+1];
     int * arrsum = new int[rangeX+1];
-    int rangeY = 0;
     public:
     Plotting(){}
-    int retRangeY(){
-        return rangeY;
-    }
     ~Plotting(){}
     float powbase(int base, int power){
         if(power==0){
@@ -152,8 +148,6 @@ class Plotting: public Polynomial{
 
 
         miny = -1*ymin;
-
-        rangeY = miny + ymax;
     }
 
     int getymin(){
@@ -193,98 +187,19 @@ class Plotting: public Polynomial{
     }
 };
 
-
-class Round{
-    private:
-    double nd;
-    int ni;
-    double rem;
-    double vald;
-    int vali;
-    double rm;
-    double roundd;
-    int roundi;
-    double workWith;
-    double finalVal;
-    public:
-    Round(){}
-    double runRound(double num){
-        this->round(num);
-        finalVal = ni+workWith;
-        return finalVal;
-    }
-
-    double remInt(double num){
-        nd = num;
-        ni = nd;
-        rem =  nd - ni;
-        return rem;
-    }
-
-    double mul(double num, int i){
-        vald = num * powbase(10,i);
-        vali = vald;
-        rm = vald - vali;
-        if(rm>=0.5){
-            vali++;
-        }
-        vald = vali;
-        return vald/powbase(10,i);
-    }
-    float powbase(int base, int power){
-        if(power==0){
-            return 1;
-        }
-        if(power > 0){
-            return base * powbase(base,power-1);
-        }
-        if(power<0)
-        {
-            return powbase(base,power+1)*1/base;
-        }
-        else{
-            return 1;
-        }
-    }
-
-
-    void round(double num){
-        roundd = num*1000;
-        roundi = roundd;
-        
-        roundd = roundi;
-        roundd = roundd/1000;
-
-        workWith = remInt(roundd);
-
-        for(int i=2;i>1;i--){
-            workWith = mul(workWith,i);
-        }
-    }
-};
-
-class Combine: public Round, public Plotting {
+class Combine: public Plotting {
     protected:
     double numVal = 40;
     double valz = 0;
     double valy = 0;
     double conversion = 0;
     int nums = 0;
-    double *graphingArr = new double [rangeY+1];
+    double *graphingArr = new double [rangeX+1];
     public:
     Combine(){};
     void runCombine(){//Number should not be greater than 80,000,000 (Eighty Million).
-        nums = rangeY;
-        if(nums<=numVal){
-            valz = numVal/nums;
-            conversion = this->runRound(valz);
-            valy = this->adjust(nums,conversion);
-        }
-        else{
-            valz = numVal/nums;
-            conversion = this->runRound(valz);
-            valy = this->adjust(nums,conversion);
-        }
+        nums = miny + ymax;
+        conversion = numVal/nums;
         cout<<"***"<<conversion<<"***"<<endl;
         this->finalgraph();
     }
@@ -308,17 +223,7 @@ class Combine: public Round, public Plotting {
         }
         return ns*sgn;
     }
-
-    int adjust(double num,double mul){
-        double valz = num*mul;
-        int valx = valz;
-        double remz = valz - valx;
-        if(remz>0.5){
-            valx++;
-        }
-    return valx;
-    }
-
+    
     void finalgraph(){
         for(int i= 0;i<=(minx+xmax);i++){
             graphingArr[i] = conversion * arrsum[i];
@@ -330,6 +235,13 @@ class Combine: public Round, public Plotting {
 class FinalClass: public Combine{
     public:
     FinalClass(){}
+    ~FinalClass(){
+        delete newarr;
+        delete arrj;
+        delete arrk;
+        delete arrsum;
+        delete graphingArr;
+    }
     void runFinalClass(){
         int inputformat;
         cout<<"Polynomial 1"<<endl<<"Conic 2"<<endl<<"exit 3"<<endl;
