@@ -228,13 +228,18 @@ class Combine: public Plotting {
     
     void finalgraph(){
         for(int i = 0;i<=(minx+xmax);i++){
-            graphingArr[i] = conversion * arrsum[i];
-            cout<<"When x is "<<i+xmin<<" y is "<<arrsum[i]<<" and "<<graphingArr[i]<<" in graph units and "<<this->roundDown(graphingArr[i])<<" when rounded down."<<endl;
+            // graphingArr[i] = conversion * arrsum[i];
+            // cout<<"When x is "<<i+xmin<<" y is "<<arrsum[i]<<" and "<<graphingArr[i]<<" in graph units and "<<this->roundDown(graphingArr[i])<<" when rounded down."<<endl;
+            graphingArr[i] = this->roundDown((conversion * arrsum[i]));
+            cout<<"When x is "<<i+xmin<<" y is "<<arrsum[i]<<" and "<<graphingArr[i]<<" in graphing units when rounded down."<<endl;
         }
     }
 };
 
 class FinalClass: public Combine{
+    private:
+    int graphymax;
+    int graphymin;
     public:
     FinalClass(){}
     ~FinalClass(){
@@ -253,10 +258,14 @@ class FinalClass: public Combine{
             this->xvals();
             this->plot();
             this->graphs();
+            this->runCombine();
+            graphymax = graphmaxv();
+            graphymin = graphminv();
+            cout<<endl<<graphymax<<endl<<graphymin<<endl;
             if(this->getxmin()<=0){
-            // this->Ymaxline();
-            // this->Xline();
-            // this->Yminline();
+                this->Ymaxline();
+                this->Xline();
+                this->Yminline();
             }else if(this->getxmin()>0){
                 cout<<"Minimum value of x should be equal to or less than 0, but it is greater than 0.";
             }
@@ -269,7 +278,147 @@ class FinalClass: public Combine{
         else if(inputformat == 3){
             cout<<"Program exited.";
         }
-        this->runCombine();
+    }
+
+    int graphmaxv(){
+        int max = 0;
+        for(int i = 0;i<=(minx+xmax);i++){
+            if(graphingArr[i]>=max){
+                max = graphingArr[i];
+            }
+        }
+        double number = max;
+        int integer = number;
+        double decimal = number - integer;
+
+        if(number>=0){
+            if(decimal>=0.5){
+                integer++;
+            }
+        }
+        else if(number < 0){
+            if(decimal<=-0.5){
+                integer--;
+            }
+        }
+        
+        return integer;
+    }
+
+    int graphminv(){
+            int min = 0;
+            for(int i = 0;i<=(minx+xmax);i++){
+                if(graphingArr[i]<=min){
+                    min = graphingArr[i];
+                }
+            }
+        double number = min;
+        int integer = number;
+        double decimal = number - integer;
+
+        if(number>=0){
+            if(decimal>=0.5){
+                integer++;
+            }
+        }
+        else if(number < 0){
+            if(decimal<=-0.5){
+                integer--;
+            }
+        }
+
+        return integer;
+    }
+
+    void Ymaxline(){
+        for(int i=graphymax; i>0; i--){
+            for(int i=1; i<minx; i++){
+                cout<<Xspace();
+            }
+            if(i>=0){
+                if(i>=10){
+                    cout<<"    "<<i<<"-|"<<endl;
+                }else{
+                    cout<<"     "<<i<<"-|"<<endl;
+                }
+            }else{
+                if(i<=-10){
+                    cout<<"   "<<i<<"-|"<<endl;
+                }else{
+                    cout<<"    "<<i<<"-|"<<endl;
+                }
+            }
+        }
+    }
+    void Yminline(){
+        for(int i=-1; i>=graphymin; i--){
+            if(i==-1){
+                continue;
+            }else{
+                for(int i=1; i<minx; i++){
+                    cout<<Xspace();
+                }
+                if(i>=0){
+                    if(i>=10){
+                        cout<<"    "<<i<<"-|"<<endl;
+                    }else{
+                        cout<<"     "<<i<<"-|"<<endl;
+                    }
+                }else{
+                    if(i<=-10){
+                        cout<<"   "<<i<<"-|"<<endl;
+                    }else{
+                        cout<<"    "<<i<<"-|"<<endl;
+                    }
+                }
+            }
+        }
+    }
+    string Xspace(){
+        return "     ";
+    }
+    void Xline(){
+        for(int i = 0;i<=(minx+xmax);i++){
+            if((i+xmin)==0){
+                cout<<"--|--";
+            }
+            else{
+                cout<<"--:--";
+            }
+        }
+        cout<<endl;
+        for(int i = 0;i<=(minx+xmax);i++){
+            if((i+xmin)<0){
+                if((i+xmin)<=-10){
+                    cout<<" "<<i+xmin<<" ";
+                }else{
+                    if(graphymin<0){
+                        if((i+xmin)==-1){
+                            cout<<" "<<i+xmin<<" ";
+                        }else{
+                            cout<<" "<<i+xmin<<"  ";
+                        }
+                    }else{
+                        cout<<" "<<i+xmin<<"  ";
+                    }
+                }
+            }
+            if((i+xmin)==0){
+                if(graphymin<0){
+                    cout<<"-1 |"<<i+xmin<<" ";
+                }else{
+                    cout<<"  "<<i+xmin<<"  ";
+                }
+            }
+            else if((i+xmin)>0){
+                if((i+xmin)>=10){
+                    cout<<"  "<<i+xmin<<" ";
+                }else{
+                    cout<<"  "<<i+xmin<<"  ";
+                }
+            }
+        }
+        cout<<endl;
     }
 };
 int main(){
