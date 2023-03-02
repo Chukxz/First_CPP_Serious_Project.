@@ -329,7 +329,7 @@ class FinalClass: public Combine{
 
         return integer;
     }
-
+    
     void Ymaxline(){
         for(int i=graphymax; i>0; i--){
             for(int i=1; i<minx; i++){
