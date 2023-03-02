@@ -420,13 +420,25 @@ public:
         {
             for (int j = 1; j < minx; j++)
             {
-                if(graphingArr[j-1]==i)
-                {
-                    cout<<"  *  ";
+                if(i>0){
+                    if(graphingArr[j-1]==i)
+                    {
+                        cout<<"  *  ";
+                    }
+                    else
+                    {
+                        cout<<"     ";
+                    }
                 }
                 else
                 {
-                    cout<<"     ";
+                    if(graphingArr[j+minx]==i){
+                            cout<<"  *  ";
+                        }
+                        else
+                        {
+                            cout<<"     ";
+                        }                        
                 }
             }
             if (i >= 0)
@@ -453,12 +465,25 @@ public:
             }
             for(int j=1; j<=xmax;j++)
             {
-                if(graphingArr[j+minx]==i){
-                    cout<<"  *  ";
+                if(i>0){
+                    if(graphingArr[j-1]==i)
+                    {
+                        cout<<"  *  ";
+                    }
+                    else
+                    {
+                        cout<<"     ";
+                    }
                 }
                 else
                 {
-                    cout<<"     ";
+                    if(graphingArr[j+minx]==i){
+                            cout<<"  *  ";
+                        }
+                        else
+                        {
+                            cout<<"     ";
+                        }                        
                 }
             }
             cout<<endl;
@@ -476,14 +501,26 @@ public:
             {
                 for (int j = 1; j < minx; j++)
                 {
-                if(graphingArr[j-1]==i)
-                {
-                    cout<<"  *  ";
-                }
-                else
-                {
-                    cout<<"     ";
-                }
+                    if(i>0){
+                        if(graphingArr[j-1]==i)
+                        {
+                            cout<<"  *  ";
+                        }
+                        else
+                        {
+                            cout<<"     ";
+                        }
+                    }
+                    else
+                    {
+                        if(graphingArr[j+minx]==i){
+                                cout<<"  *  ";
+                            }
+                            else
+                            {
+                                cout<<"     ";
+                            }                        
+                    }
                 }
                 if (i >= 0)
                 {
@@ -509,12 +546,25 @@ public:
                 }
                 for(int j=1; j<=xmax;j++)
                 {
-                    if(graphingArr[j+minx]==i){
-                        cout<<"  *  ";
+                    if(i>0){
+                        if(graphingArr[j-1]==i)
+                        {
+                            cout<<"  *  ";
+                        }
+                        else
+                        {
+                            cout<<"     ";
+                        }
                     }
                     else
                     {
-                        cout<<"     ";
+                        if(graphingArr[j+minx]==i){
+                                cout<<"  *  ";
+                            }
+                            else
+                            {
+                                cout<<"     ";
+                            }                        
                     }
                 }                
             }
