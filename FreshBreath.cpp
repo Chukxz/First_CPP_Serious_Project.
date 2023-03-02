@@ -14,11 +14,11 @@ public:
     Polynomial() {}
     void Poly()
     {
-        cout << "Input Polynomial degree:" << endl;
+        cout << "Input Polynomial degree:\n";
         cin >> degree;
         for (int i = degree; i >= 0; i--)
         {
-            cout << "Input coefficient of x raised to power " << i << ": " << endl;
+            cout << "Input coefficient of x raised to power " << i << ":\n";
             cin >> val;
             newarr[i] = val;
         }
@@ -26,7 +26,7 @@ public:
         {
             cout << newarr[i] << " ";
         }
-        cout << endl;
+        cout << "\n";
     }
     void Xspace()
     {
@@ -37,7 +37,7 @@ public:
     }
     void xvals()
     {
-        cout << "Input range of X values" << endl;
+        cout << "Input range of X values\n"
         ;
 
         cout << "Xmin: ";
@@ -111,7 +111,7 @@ public:
         {
             arrsum[index + minx] = arrk[index];
         }
-        cout << endl;
+        cout << "\n";
     }
 
     int ymaxv()
@@ -186,9 +186,9 @@ public:
         miny = -1 * ymin;
     }
 
-    int getymin()
+    int getxmax()
     {
-        return ymin;
+        return xmax;
     }
     int getxmin()
     {
@@ -202,7 +202,7 @@ public:
             for (int i = 1; i <= 5 * ymax; i++)
             {
                 Xspace();
-                cout << "|" << endl;
+                cout << "|" << "\n";
             }
         }
     }
@@ -219,7 +219,7 @@ public:
             {
                 cout << "--";
             }
-            cout << endl;
+            cout << "\n";
         }
     }
     void Yminline()
@@ -229,7 +229,7 @@ public:
             for (int i = 1; i <= 5 * miny; i++)
             {
                 Xspace();
-                cout << "|" << endl;
+                cout << "|" << "\n";
             }
         }
     }
@@ -252,7 +252,7 @@ public:
     { // Number should not be greater than 80,000,000 (Eighty Million).
         nums = miny + ymax;
         conversion = numVal / nums;
-        cout << "***" << conversion << "***" << endl;
+        // cout << "***" << conversion << "***\n";
         this->finalgraph();
     }
 
@@ -284,9 +284,9 @@ public:
         for (int i = 0; i <= (minx + xmax); i++)
         {
             // graphingArr[i] = conversion * arrsum[i];
-            // cout<<"When x is "<<i+xmin<<" y is "<<arrsum[i]<<" and "<<graphingArr[i]<<" in graph units and "<<this->roundDown(graphingArr[i])<<" when rounded down."<<endl;
+            // cout<<"When x is "<<i+xmin<<" y is "<<arrsum[i]<<" and "<<graphingArr[i]<<" in graph units and "<<this->roundDown(graphingArr[i])<<" when rounded down.\n";
             graphingArr[i] = this->roundDown((conversion * arrsum[i]));
-            cout << "When x is " << i + xmin << " y is " << arrsum[i] << " and " << graphingArr[i] << " in graphing units when rounded down." << endl;
+            // cout << "When x is " << i + xmin << " y is " << arrsum[i] << " and " << graphingArr[i] << " in graphing units when rounded down.\n";
         }
     }
 };
@@ -309,36 +309,44 @@ public:
     }
     void runFinalClass()
     {
+        cout<<"Input a number to select the corresponding option, each number provided below refers to the option in front of it.\n";
         int inputformat;
-        cout << "Polynomial 1" << endl
-             << "Conic 2" << endl
-             << "exit 3" << endl;
+        cout << "Polynomial 1\n"
+             << "Conic 2\n"
+             << "exit 3\n";
         cin >> inputformat;
         if (inputformat == 1)
         {
             this->Poly();
             this->xvals();
+            if (this->getxmin() <= 0 && this->getxmax() >= 0)
+            {
             this->plot();
             this->graphs();
             this->runCombine();
             graphymax = graphmaxv();
             graphymin = graphminv();
-            cout << endl
-                 << graphymax << endl
-                 << graphymin << endl;
-            if (this->getxmin() <= 0)
-            {
+            this->stateGraph();
+            cout <<"\n"
+                 << "Maximum Y value: "<<graphymax<<"\n"
+                 << "Minimum Y value: "<<graphymin <<"\n";
                 this->Ymaxline();
                 this->Xline();
                 this->Yminline();
             }
-            else if (this->getxmin() > 0)
+            else if (this->getxmin() > 0 && this->getxmax() >= 0)
             {
-                cout << "Minimum value of x should be equal to or less than 0, but it is greater than 0.";
+                cout << "Minimum value of x should be equal to or less than 0, but it is greater than 0.\n";
+                cout<<"Program exited.";              
             }
-            else
+            else if (this->getxmax() < 0 && this->getxmin() <= 0){
+                cout << "Maximum value of x should be equal to or greater than 0, but it is less than 0.\n";  
+                cout<<"Program exited.";              
+            }
+            else if (this->getxmin() > 0 && this->getxmax() < 0)
             {
-                cout << "Value of x is not a number!";
+                cout << "Maximum value of x should be equal to or greater than 0 and minimum value of x should be equal to or less than 0, but the maximum value is less than 0 and the minimum value is greater than 0\n";  
+                cout<<"Program exited.";           
             }
         }
         else if (inputformat == 2)
@@ -414,11 +422,98 @@ public:
         return integer;
     }
 
+    void ComplementYlines(int i){
+        if (i >= 0)
+        {
+            if(graphingArr[minx-1]==i && graphingArr[minx]!=i){
+                if (i >= 10)
+                {
+                    cout << "  * " << i << "-|  ";
+                }
+                else
+                {
+                    cout << "  *  " << i << "-|  ";
+                }                    
+            }
+            else if(graphingArr[minx]==i && graphingArr[minx-1]!=i){
+                if (i >= 10)
+                {
+                    cout << "    " << i << "-*  ";
+                }
+                else
+                {
+                    cout << "     " << i << "-*  ";
+                }                    
+            }
+            else if(graphingArr[minx-1]==1 && graphingArr[minx]==i){
+                if (i>=10)
+                {
+                    cout << "  * " << i << "-*  ";
+                }
+                else{
+                    cout << "  *  " << i << "-*  ";
+                }
+            }
+            else{
+                if (i >= 10)
+                {
+                    cout << "    " << i << "-|  ";
+                }
+                else
+                {
+                    cout << "     " << i << "-|  ";
+                }                   
+            }
+        }
+        else
+        {
+            if(graphingArr[minx-1]==i && graphingArr[minx]!=i){
+                if (i <= -10)
+                {
+                    cout << "  *" << i << "-|  ";
+                }
+                else
+                {
+                    cout << "  * " << i << "-|  ";
+                }                    
+            }
+            else if(graphingArr[minx]==i && graphingArr[minx-1]!=i){
+                if (i <= -10)
+                {
+                    cout << "   " << i << "-*  ";
+                }
+                else
+                {
+                    cout << "    " << i << "-*  ";
+                }                    
+            }
+            else if(graphingArr[minx-1]==i && graphingArr[minx]==i){
+                if (i <= -10)
+                {
+                    cout << "  *" << i << "-*  ";
+                }
+                else{
+                    cout << "  * " << i << "-*  "; 
+                }
+            }
+            else{
+                if (i <= -10)
+                {
+                    cout << "   " << i << "-|  ";
+                }
+                else
+                {
+                    cout << "    " << i << "-|  ";
+                }
+            }
+        }
+    }
+
     void Ymaxline()
     {
         for (int i = graphymax; i > 0; i--)
         {
-            for (int j = 1; j < minx; j++)
+            for (int j=1; j<minx; j++)
             {
                 if(graphingArr[j-1]==i)
                 {
@@ -429,72 +524,7 @@ public:
                     cout<<"     ";
                 }
             }
-            if (i >= 0)
-            {
-                if(graphingArr[minx-1]==i){
-                    if (i >= 10)
-                    {
-                        cout << "  * " << i << "-|  ";
-                    }
-                    else
-                    {
-                        cout << "  *  " << i << "-|  ";
-                    }                    
-                }
-                else if(graphingArr[minx]==i){
-                    if (i >= 10)
-                    {
-                        cout << "    " << i << "-*  ";
-                    }
-                    else
-                    {
-                        cout << "     " << i << "-*  ";
-                    }                    
-                }
-                else{
-                    if (i >= 10)
-                    {
-                        cout << "    " << i << "-|  ";
-                    }
-                    else
-                    {
-                        cout << "     " << i << "-|  ";
-                    }                   
-                }
-            }
-            else
-            {
-                if(graphingArr[minx-1]==i){
-                    if (i <= -10)
-                    {
-                        cout << "  *" << i << "-|  ";
-                    }
-                    else
-                    {
-                        cout << "  * " << i << "-|  ";
-                    }                    
-                }
-                else if(graphingArr[minx]==i){
-                    if (i <= -10)
-                    {
-                        cout << "   " << i << "-*  ";
-                    }
-                    else
-                    {
-                        cout << "    " << i << "-*  ";
-                    }                    
-                }
-                else{
-                    if (i <= -10)
-                    {
-                        cout << "   " << i << "-|  ";
-                    }
-                    else
-                    {
-                        cout << "    " << i << "-|  ";
-                    }
-                }
-            }
+            ComplementYlines(i);
             for(int j=1; j<=xmax;j++)
             {
                 if(graphingArr[j+minx]==i){
@@ -505,7 +535,7 @@ public:
                     cout<<"     ";
                 }
             }
-            cout<<endl;
+            cout<<"\n";
         }
     }
     void Yminline()
@@ -518,7 +548,7 @@ public:
             }
             else
             {
-                for (int j = 1; j < minx; j++)
+                for (int j=1; j<minx; j++)
                 {
                 if(graphingArr[j-1]==i)
                 {
@@ -529,28 +559,7 @@ public:
                     cout<<"     ";
                 }
                 }
-                if (i >= 0)
-                {
-                    if (i >= 10)
-                    {
-                        cout << "    " << i << "-|";
-                    }
-                    else
-                    {
-                        cout << "     " << i << "-|";
-                    }
-                }
-                else
-                {
-                    if (i <= -10)
-                    {
-                        cout << "   " << i << "-|";
-                    }
-                    else
-                    {
-                        cout << "    " << i << "-|";
-                    }
-                }
+                ComplementYlines(i);
                 for(int j=1; j<=xmax;j++)
                 {
                     if(graphingArr[j+minx]==i){
@@ -562,27 +571,12 @@ public:
                     }
                 }                
             }
-            cout<<endl;
+            cout<<"\n";
         }
     }
 
-    void Xline()
-    {
-        for (int i = 0; i <= (minx + xmax); i++)
-        {
-            if ((i + xmin) == 0)
-            {
-                cout << "--|--";
-            }
-            else
-            {
-                cout << "--:--";
-            }
-        }
-        cout << endl;
-        for (int i = 0; i <= (minx + xmax); i++)
-        {
-            if ((i + xmin) < 0)
+    void ComplementXline(int i){
+        if ((i + xmin) < 0)
             {
                 if ((i + xmin) <= -10)
                 {
@@ -604,18 +598,28 @@ public:
                     else
                     {
                         cout << " " << i + xmin << "  ";
-                    }
+                    }                    
                 }
             }
             if ((i + xmin) == 0)
             {
                 if (graphymin < 0)
                 {
-                    cout << "-1 |" << i + xmin << " ";
+                    if(minx==0){
+                        cout<<"      |" << i + xmin <<" ";
+                    }
+                    else{
+                        cout << "-1-|" << i + xmin << " ";
+                    }
                 }
                 else
                 {
-                    cout << "  " << i + xmin << "  ";
+                    if(minx == 0){
+                        cout << "       " << i + xmin<<"  ";
+                    }
+                    else{
+                        cout << "  " << i + xmin << "  ";
+                    }
                 }
             }
             else if ((i + xmin) > 0)
@@ -629,8 +633,136 @@ public:
                     cout << "  " << i + xmin << "  ";
                 }
             }
+    }
+    void Xline()
+    {
+        for (int i = 0; i <= (minx + xmax); i++)
+        {
+            if(graphingArr[i]==0){
+                if(minx==0){
+                    cout<<"     --*--";
+                }
+                else{
+                    cout<< "--*--";
+                }
+            }
+            else{
+                if ((i + xmin) == 0)
+                {
+                    if(minx==0){
+                        cout<<"     --|--";
+                    }
+                    else{
+                        cout << "--|--";
+                    }
+                }
+                else
+                {
+                    cout << "--:--";
+                }
+            }
         }
-        cout << endl;
+        cout << "\n";
+        for (int i = 0; i <= (minx + xmax); i++)
+        {
+            if(graphingArr[i]==-1){
+                cout << "  * ";
+            }
+            else{
+                ComplementXline(i);
+            }
+        }
+        cout << "\n";
+    }
+    void stateGraph(){
+        cout<<"Graph of y =";
+        for(int i=degree; i>=0; i--){
+            int store = 0;
+
+            if(i==degree){
+                if(newarr[i]==0){
+                    cout<<" 0";
+                }
+                else if(newarr[i]==-1)
+                {
+                    if(i==1){
+                        cout<<" -x";
+                    }
+                    else{
+                        cout<<" -x^"<<i;
+                    } 
+                }
+                else if(newarr[i]==1)
+                {
+                    if(i==1){
+                        cout<<" x";
+                    }
+                    else{
+                        cout<<" x^"<<i;
+                    }
+                }
+                else{
+                    if(i==1){
+                        cout<<" "<<newarr[i]<<"x";
+                    }
+                    else{
+                        cout<<" "<<newarr[i]<<"x^"<<i;
+                    }
+                }                
+            }
+            else
+            {                
+                if(newarr[i]==0){
+                    cout<<" + 0";
+                }
+                else if(newarr[i]==-1){
+                    if(i==0){
+                        cout<<" - 1";
+                    }
+                    if(i==1){
+                        cout<<" - x";
+                    }
+                    else{
+                        cout<<" - x^"<<i;
+                    }
+                }
+                else if(newarr[i]==1){
+                    if(i==0){
+                        cout<<" + 1";
+                    }
+                    else if(i==1){
+                        cout<<" + x";
+                    }
+                    else{
+                        cout<<" + x^"<<i;
+                    }
+                }
+                else if(newarr[i]>1){
+                    if(i==0){
+                        cout<<" + "<<newarr[i];
+                    }
+                    else if(i==1){
+                        cout<<" + "<<newarr[i]<<"x";
+                    }
+                    else{
+                        cout<<" + "<<newarr[i]<<"x^"<<i;
+                    }
+                }
+                else if(newarr[i]<-1){
+                    store = -newarr[i];
+                    if(i==0){
+                        cout<<" - "<<store;
+                    }
+                    else if(i==1){
+                        cout<<" - "<<store<<"x";
+                    }
+                    else{
+                        cout<<" - "<<store<<"x^"<<i;
+                    }
+                }
+            }
+        }
+        cout<<" in the interval "<<xmin<<" <= x <= "<<xmax<<".";
     }
 };
 int main()
