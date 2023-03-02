@@ -538,21 +538,14 @@ public:
                 }
                 else
                 {
-                    if (graphymin < 0)
+                    if ((i + xmin) == -1)
                     {
-                        if ((i + xmin) == -1)
-                        {
-                            cout << " " << i + xmin << " ";
-                        }
-                        else
-                        {
-                            cout << " " << i + xmin << "  ";
-                        }
+                        cout << " " << i + xmin << " ";
                     }
                     else
                     {
                         cout << " " << i + xmin << "  ";
-                    }                    
+                    }
                 }
             }
             if ((i + xmin) == 0)
@@ -560,7 +553,7 @@ public:
                 if (graphymin < 0)
                 {
                     if(minx==0){
-                        cout<<"      |" << i + xmin <<" ";
+                        cout<<"       |" << i + xmin <<" ";
                     }
                     else{
                         cout << "-1-|" << i + xmin << " ";
@@ -572,7 +565,7 @@ public:
                         cout << "       " << i + xmin<<"  ";
                     }
                     else{
-                        cout << "  " << i + xmin << "  ";
+                        cout << "   " << i + xmin << "  ";
                     }
                 }
             }
@@ -620,7 +613,12 @@ public:
         for (int i = 0; i <= (minx + xmax); i++)
         {
             if(graphingArr[i]==-1){
-                cout << "  * ";
+                if(i==-1){
+                    cout<< "  * ";
+                }
+                else{
+                    cout << "  *  ";
+                }
             }
             else{
                 ComplementXline(i);
