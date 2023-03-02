@@ -8,7 +8,6 @@ protected:
     int val;
     int *newarr = new int[degree + 1];
     int ymax, ymin, xmax, xmin, minx, miny, rangeX;
-    int origin, accepted;
 
 public:
     Polynomial() {}
@@ -28,13 +27,7 @@ public:
         }
         cout << "\n";
     }
-    void Xspace()
-    {
-        for (int x = 1; x <= 10 * minx; x++)
-        {
-            cout << "  ";
-        }
-    }
+
     void xvals()
     {
         cout << "Input range of X values\n"
