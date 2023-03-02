@@ -431,24 +431,68 @@ public:
             }
             if (i >= 0)
             {
-                if (i >= 10)
-                {
-                    cout << "    " << i << "-|";
+                if(graphingArr[minx-1]==i){
+                    if (i >= 10)
+                    {
+                        cout << "  * " << i << "-|  ";
+                    }
+                    else
+                    {
+                        cout << "  *  " << i << "-|  ";
+                    }                    
                 }
-                else
-                {
-                    cout << "     " << i << "-|";
+                else if(graphingArr[minx]==i){
+                    if (i >= 10)
+                    {
+                        cout << "    " << i << "-*  ";
+                    }
+                    else
+                    {
+                        cout << "     " << i << "-*  ";
+                    }                    
+                }
+                else{
+                    if (i >= 10)
+                    {
+                        cout << "    " << i << "-|  ";
+                    }
+                    else
+                    {
+                        cout << "     " << i << "-|  ";
+                    }                   
                 }
             }
             else
             {
-                if (i <= -10)
-                {
-                    cout << "   " << i << "-|";
+                if(graphingArr[minx-1]==i){
+                    if (i <= -10)
+                    {
+                        cout << "  *" << i << "-|  ";
+                    }
+                    else
+                    {
+                        cout << "  * " << i << "-|  ";
+                    }                    
                 }
-                else
-                {
-                    cout << "    " << i << "-|";
+                else if(graphingArr[minx]==1){
+                    if (i <= -10)
+                    {
+                        cout << "   " << i << "-*  ";
+                    }
+                    else
+                    {
+                        cout << "    " << i << "-*  ";
+                    }                    
+                }
+                else{
+                    if (i <= -10)
+                    {
+                        cout << "   " << i << "-|  ";
+                    }
+                    else
+                    {
+                        cout << "    " << i << "-|  ";
+                    }
                 }
             }
             for(int j=1; j<=xmax;j++)
