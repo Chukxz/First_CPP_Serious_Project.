@@ -187,45 +187,6 @@ public:
     {
         return xmin;
     }
-
-    void Ymaxline()
-    {
-        if ((minx + xmax) <= 15)
-        {
-            for (int i = 1; i <= 5 * ymax; i++)
-            {
-                Xspace();
-                cout << "|" << "\n";
-            }
-        }
-    }
-    void Xline()
-    {
-        if ((minx + xmax) <= 15)
-        {
-            for (int a = 1; a <= 10 * minx; a++)
-            {
-                cout << "--";
-            }
-            cout << "|";
-            for (int b = 1; b <= 10 * xmax; b++)
-            {
-                cout << "--";
-            }
-            cout << "\n";
-        }
-    }
-    void Yminline()
-    {
-        if ((minx + xmax) <= 15)
-        {
-            for (int i = 1; i <= 5 * miny; i++)
-            {
-                Xspace();
-                cout << "|" << "\n";
-            }
-        }
-    }
 };
 
 class Combine : public Plotting
