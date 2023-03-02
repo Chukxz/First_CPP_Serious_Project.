@@ -461,6 +461,7 @@ public:
                     cout<<"     ";
                 }
             }
+            cout<<endl;
         }
     }
     void Yminline()
@@ -517,6 +518,7 @@ public:
                     }
                 }                
             }
+            cout<<endl;
         }
     }
 
