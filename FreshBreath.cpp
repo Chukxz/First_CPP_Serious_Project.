@@ -474,7 +474,7 @@ public:
                         cout << "  * " << i << "-|  ";
                     }                    
                 }
-                else if(graphingArr[minx]==1){
+                else if(graphingArr[minx]==i){
                     if (i <= -10)
                     {
                         cout << "   " << i << "-*  ";
