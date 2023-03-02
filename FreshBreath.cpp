@@ -433,22 +433,22 @@ public:
             {
                 if (i >= 10)
                 {
-                    cout << "    " << i << "-|" << endl;
+                    cout << "    " << i << "-|";
                 }
                 else
                 {
-                    cout << "     " << i << "-|" << endl;
+                    cout << "     " << i << "-|";
                 }
             }
             else
             {
                 if (i <= -10)
                 {
-                    cout << "   " << i << "-|" << endl;
+                    cout << "   " << i << "-|";
                 }
                 else
                 {
-                    cout << "    " << i << "-|" << endl;
+                    cout << "    " << i << "-|";
                 }
             }
             for(int j=1; j<=xmax;j++)
@@ -489,22 +489,22 @@ public:
                 {
                     if (i >= 10)
                     {
-                        cout << "    " << i << "-|" << endl;
+                        cout << "    " << i << "-|";
                     }
                     else
                     {
-                        cout << "     " << i << "-|" << endl;
+                        cout << "     " << i << "-|";
                     }
                 }
                 else
                 {
                     if (i <= -10)
                     {
-                        cout << "   " << i << "-|" << endl;
+                        cout << "   " << i << "-|";
                     }
                     else
                     {
-                        cout << "    " << i << "-|" << endl;
+                        cout << "    " << i << "-|";
                     }
                 }
                 for(int j=1; j<=xmax;j++)
